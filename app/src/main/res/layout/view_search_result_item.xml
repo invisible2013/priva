@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:paddingTop="5dp"
+    android:paddingLeft="5dp"
+    >
+    <TextView
+        android:id="@+id/f_object_address"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/darker_gray"
+        android:text="სოფელი დიღმის 2 შესახვევი მეხუთე"/>
+    <TextView
+        android:id="@+id/f_object_cadCode"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/holo_blue_dark"
+        android:text="12.234.56.780"
+        android:paddingTop="5dp"/>
+
+    <TextView
+        android:id="@+id/f_object_winner"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="5dp"
+        android:text="ავთანდილ წამალაიძე (33001055689)"/>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp">
+        <TextView
+            android:id="@+id/f_object_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/holo_blue_dark"
+            android:text="12/03/2015"/>
+
+        <TextView
+            android:id="@+id/f_object_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/darker_gray"
+            android:paddingLeft="10dp"
+            android:text="76000/7600 ლარი"/>
+    </LinearLayout>
+
+
+
+
+</LinearLayout>
