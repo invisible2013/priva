@@ -24,4 +24,5 @@ dependencies {
     compile 'com.android.support:appcompat-v7:22.1.1'
     compile 'com.loopj.android:android-async-http:1.4.7'
     compile 'org.jsoup:jsoup:1.6.1'
+    compile 'com.koushikdutta.urlimageviewhelper:urlimageviewhelper:1.0.4'
 }

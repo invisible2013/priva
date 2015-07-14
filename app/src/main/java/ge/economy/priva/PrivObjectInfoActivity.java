@@ -5,18 +5,25 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import ge.economy.priva.data.PrivObject;
+import ge.economy.priva.fragments.PrivObjectPhotoDialog;
 
 
 public class PrivObjectInfoActivity extends Activity {
     public static PrivObject mPrivObject;
+    private RelativeLayout mPrivObjectPhoto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_priv_object_info);
+
+        mPrivObjectPhoto = (RelativeLayout) findViewById(R.id.p_priv_obeject_photo);
+
         TextView textViewName = (TextView) findViewById(R.id.f_detail_name);
         textViewName.setText(mPrivObject.getName());
         TextView textViewAddress = (TextView) findViewById(R.id.f_detail_address);
@@ -45,6 +52,17 @@ public class PrivObjectInfoActivity extends Activity {
         textViewAppNumber.setText(mPrivObject.getAppNumber());
         TextView textViewObligation = (TextView) findViewById(R.id.f_detail_obligation);
         textViewObligation.setText(mPrivObject.getObligation());
+
+        mPrivObjectPhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mPrivObject != null && mPrivObject.getImages() != null) {
+                    PrivObjectPhotoDialog.images=mPrivObject.getImages();
+                    PrivObjectPhotoDialog dialog=new PrivObjectPhotoDialog();
+                    dialog.show(getFragmentManager(),"");
+                }
+            }
+        });
     }
 
 

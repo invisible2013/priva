@@ -3,7 +3,6 @@ package ge.economy.priva;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.renderscript.Element;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -23,12 +22,14 @@ import com.loopj.android.http.TextHttpResponseHandler;
 import org.apache.http.Header;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import ge.economy.priva.data.PrivObject;
+import ge.economy.priva.services.PURL;
 
 
 public class ResultActivity extends Activity {
@@ -80,7 +81,7 @@ public class ResultActivity extends Activity {
         String splited = mSelectedObject.getHref().substring(24, mSelectedObject.getHref().length() - 1);
         AsyncHttpClient rr = new AsyncHttpClient();
 
-        rr.get("http://privatization.ge/" + splited, null, new TextHttpResponseHandler() {
+        rr.get(PURL.PRIVA_BASE_URL + splited, null, new TextHttpResponseHandler() {
 
 
             @Override
@@ -129,6 +130,12 @@ public class ResultActivity extends Activity {
                     _obj.setNote(trs.get(i + 27).getElementsByTag("td").get(0).text());
                     _obj.setNoteDescription(trs.get(i + 27).getElementsByTag("td").get(0).getElementsByTag("p").get(1).text());
 
+                    Elements imgs = table.get(2).getElementById("wrapper1").getElementsByTag("img");
+                    List<String> images=new ArrayList<String>();
+                    for(Element e:imgs){
+                        images.add(PURL.PRIVA_BASE_URL + e.attr("src"));
+                    }
+                    _obj.setImages(images);
                 }
                 callback.onObjectsReceive(_obj);
 

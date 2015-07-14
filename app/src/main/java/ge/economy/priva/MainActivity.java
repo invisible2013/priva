@@ -23,6 +23,7 @@ import java.util.List;
 
 import ge.economy.priva.data.PrivObject;
 import ge.economy.priva.data.SearchObject;
+import ge.economy.priva.services.PURL;
 
 
 public class MainActivity extends Activity {
@@ -76,7 +77,7 @@ public class MainActivity extends Activity {
 
         AsyncHttpClient rr = new AsyncHttpClient();
 
-        rr.get("http://privatization.ge/", params, new TextHttpResponseHandler() {
+        rr.get(PURL.PRIVA_BASE_URL, params, new TextHttpResponseHandler() {
 
 
             @Override

@@ -1,5 +1,7 @@
 package ge.economy.priva.data;
 
+import java.util.List;
+
 /**
  * Created by nl on 7/9/2015.
  */
@@ -28,6 +30,7 @@ public class PrivObject {
     private String bankRequisites;
     private String note;
     private String noteDescription;
+    private List<String> images;
 
 
     public String getName() {
@@ -220,5 +223,13 @@ public class PrivObject {
 
     public void setDisposalTerm(String disposalTerm) {
         this.disposalTerm = disposalTerm;
+    }
+
+    public List<String> getImages() {
+        return images;
+    }
+
+    public void setImages(List<String> images) {
+        this.images = images;
     }
 }
