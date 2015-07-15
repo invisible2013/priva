@@ -1,6 +1,7 @@
 package ge.economy.priva.data;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by nl on 7/9/2015.
@@ -31,6 +32,7 @@ public class PrivObject {
     private String note;
     private String noteDescription;
     private List<String> images;
+    private Map<String,String> attributes;
 
 
     public String getName() {
@@ -231,5 +233,13 @@ public class PrivObject {
 
     public void setImages(List<String> images) {
         this.images = images;
+    }
+
+    public Map<String, String> getAttributes() {
+        return attributes;
+    }
+
+    public void setAttributes(Map<String, String> attributes) {
+        this.attributes = attributes;
     }
 }

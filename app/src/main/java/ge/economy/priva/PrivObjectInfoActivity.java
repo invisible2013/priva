@@ -1,14 +1,25 @@
 package ge.economy.priva;
 
 import android.app.Activity;
+import android.content.Context;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.security.Key;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import ge.economy.priva.data.KeyValue;
 import ge.economy.priva.data.PrivObject;
 import ge.economy.priva.fragments.PrivObjectPhotoDialog;
 
@@ -23,61 +34,58 @@ public class PrivObjectInfoActivity extends Activity {
         setContentView(R.layout.activity_priv_object_info);
 
         mPrivObjectPhoto = (RelativeLayout) findViewById(R.id.p_priv_obeject_photo);
-
-        TextView textViewName = (TextView) findViewById(R.id.f_detail_name);
-        textViewName.setText(mPrivObject.getName());
-        TextView textViewAddress = (TextView) findViewById(R.id.f_detail_address);
-        textViewAddress.setText(mPrivObject.getAddress());
-        TextView textViewCadCode = (TextView) findViewById(R.id.f_detail_cadCode);
-        textViewCadCode.setText(mPrivObject.getCadCode());
-        TextView textViewGoogle = (TextView) findViewById(R.id.f_detail_google);
-        textViewGoogle.setText(mPrivObject.getGoogleMapLink());
-        TextView textViewReestri = (TextView) findViewById(R.id.f_detail_reestri);
-        textViewReestri.setText(mPrivObject.getReestriLink());
-        TextView textViewCadastral = (TextView) findViewById(R.id.f_detail_cadastral);
-        textViewCadastral.setText(mPrivObject.getCadastrMapLink());
-        TextView textViewAuctionNumber = (TextView) findViewById(R.id.f_detail_auctionNumber);
-        textViewAuctionNumber.setText(mPrivObject.getAuctionOrderNumber());
-        TextView textViewAuctionDate = (TextView) findViewById(R.id.f_detail_auctionDate);
-        textViewAuctionDate.setText(mPrivObject.getAuctionStartEndDate());
-        TextView textViewDisposalForm = (TextView) findViewById(R.id.f_detail_disposalForm);
-        textViewDisposalForm.setText(mPrivObject.getDisposalForm());
-        TextView textViewWinnerIdNumber = (TextView) findViewById(R.id.f_detail_winnerIdNumber);
-        textViewWinnerIdNumber.setText(mPrivObject.getWinnerIdNumber());
-        TextView textViewWinnerName = (TextView) findViewById(R.id.f_detail_winnerName);
-        textViewWinnerName.setText(mPrivObject.getWinnerName());
-        TextView textViewPrice = (TextView) findViewById(R.id.f_detail_price);
-        textViewPrice.setText(mPrivObject.getPrice());
-        TextView textViewAppNumber = (TextView) findViewById(R.id.f_detail_appNumber);
-        textViewAppNumber.setText(mPrivObject.getAppNumber());
-        TextView textViewObligation = (TextView) findViewById(R.id.f_detail_obligation);
-        textViewObligation.setText(mPrivObject.getObligation());
-
         mPrivObjectPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (mPrivObject != null && mPrivObject.getImages() != null) {
-                    PrivObjectPhotoDialog.images=mPrivObject.getImages();
-                    PrivObjectPhotoDialog dialog=new PrivObjectPhotoDialog();
-                    dialog.show(getFragmentManager(),"");
+                    PrivObjectPhotoDialog.images = mPrivObject.getImages();
+                    PrivObjectPhotoDialog dialog = new PrivObjectPhotoDialog();
+                    dialog.show(getFragmentManager(), "");
                 }
             }
         });
-    }
 
+        ListView listView = (ListView) findViewById(R.id.p_priv_obeject_items);
+        PrivObjectInfoAdapter privObjectInfoAdapter = new PrivObjectInfoAdapter(PrivObjectInfoActivity.this, 0, new ArrayList<KeyValue>());
+        listView.setAdapter(privObjectInfoAdapter);
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        List<KeyValue> keyValues = new ArrayList<KeyValue>();
+        for (Map.Entry<String, String> entry : mPrivObject.getAttributes().entrySet()) {
+            keyValues.add(new KeyValue(entry.getKey(),entry.getValue()));
         }
 
-        return super.onOptionsItemSelected(item);
+        privObjectInfoAdapter.addAll(keyValues);
+
+
     }
+
+    class PrivObjectInfoAdapter extends ArrayAdapter<KeyValue> {
+
+        private Context mContext;
+        private List<KeyValue> mObjects;
+
+        public PrivObjectInfoAdapter(Context context, int resource, List<KeyValue> objects) {
+            super(context, resource, objects);
+            mContext = context;
+            mObjects = objects;
+        }
+
+        public View getView(final int position, View convertView, ViewGroup parent) {
+            KeyValue k = mObjects.get(position);
+            LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View rowView = inflater.inflate(R.layout.view_priv_object_info_item, parent, false);
+
+            TextView key = ((TextView) rowView.findViewById(R.id.p_priv_object_name));
+            key.setText(k.getKey());
+
+            TextView value = ((TextView) rowView.findViewById(R.id.p_priv_object_value));
+            value.setText(k.getValue());
+
+            return rowView;
+        }
+    }
+
+
 }
+
+

@@ -5,7 +5,6 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_result">ძებნის შედეგი</string>
     <string name="title_activity_priv_object_info">დეტალური ინფორმაცია</string>
-
-<!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="p_priv_object_name">დასახელება</string>
+    <string name="p_priv_object_address">მისამართი</string>
 </resources>

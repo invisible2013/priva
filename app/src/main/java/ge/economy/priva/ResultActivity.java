@@ -26,7 +26,10 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import ge.economy.priva.data.PrivObject;
 import ge.economy.priva.services.PURL;
@@ -99,6 +102,44 @@ public class ResultActivity extends Activity {
                     Elements table = objects.get(0).getElementsByTag("table");
                     Elements trs = table.get(1).getElementsByTag("tr");
 
+                    Map<String, String> nameValues = new LinkedHashMap<String, String>();
+                    for (int i = 0; i < trs.size(); i++) {
+                        Element tr = trs.get(i);
+                        Elements tds = tr.getElementsByTag("td");
+                        if (tds != null && tds.size() == 2 && !tr.hasClass("tr_h")) {
+                            Element fieldName = tds.get(0);
+                            Element fieldValue = tds.get(1);
+
+                            if (fieldName != null && fieldValue != null && fieldValue.text() != null) {
+                                nameValues.put(fieldName.text(), fieldValue.text());
+                            }
+                        } else if ((i + 1) == trs.size()) {
+                            nameValues.put("შენიშვნა", tds.get(0).text());
+                        }
+                    }
+                    _obj.setAttributes(nameValues);
+
+                    Elements imgs = table.get(2).getElementById("wrapper1").getElementsByTag("img");
+                    List<String> images = new ArrayList<>();
+                    for (Element e : imgs) {
+                        images.add(PURL.PRIVA_BASE_URL + e.attr("src"));
+                    }
+                    _obj.setImages(images);
+                }
+                callback.onObjectsReceive(_obj);
+
+            }
+
+          /*  @Override
+            public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                Document document = Jsoup.parse(responseString);
+
+                PrivObject _obj = new PrivObject();
+                Elements objects = document.getElementsByClass("inside_table");
+                if (objects != null && !objects.isEmpty()) {
+                    Elements table = objects.get(0).getElementsByTag("table");
+                    Elements trs = table.get(1).getElementsByTag("tr");
+
                     int i = 1;
                     _obj.setName(trs.get(i).getElementsByTag("td").get(1).text());
                     _obj.setAddress(trs.get(i + 1).getElementsByTag("td").get(1).text());
@@ -131,7 +172,7 @@ public class ResultActivity extends Activity {
                     _obj.setNoteDescription(trs.get(i + 27).getElementsByTag("td").get(0).getElementsByTag("p").get(1).text());
 
                     Elements imgs = table.get(2).getElementById("wrapper1").getElementsByTag("img");
-                    List<String> images=new ArrayList<String>();
+                    List<String> images=new ArrayList<>();
                     for(Element e:imgs){
                         images.add(PURL.PRIVA_BASE_URL + e.attr("src"));
                     }
@@ -140,6 +181,7 @@ public class ResultActivity extends Activity {
                 callback.onObjectsReceive(_obj);
 
             }
+            */
         });
 
     }
