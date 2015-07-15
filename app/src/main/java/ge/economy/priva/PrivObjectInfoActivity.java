@@ -2,6 +2,7 @@ package ge.economy.priva;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -38,9 +39,9 @@ public class PrivObjectInfoActivity extends Activity {
             @Override
             public void onClick(View v) {
                 if (mPrivObject != null && mPrivObject.getImages() != null) {
-                    PrivObjectPhotoDialog.images = mPrivObject.getImages();
-                    PrivObjectPhotoDialog dialog = new PrivObjectPhotoDialog();
-                    dialog.show(getFragmentManager(), "");
+                    PrivObjectImageActivity.mPrivObjectImages = mPrivObject.getImages();
+                    Intent intent = new Intent(PrivObjectInfoActivity.this, PrivObjectImageActivity.class);
+                    startActivity(intent);
                 }
             }
         });
@@ -49,9 +50,9 @@ public class PrivObjectInfoActivity extends Activity {
         PrivObjectInfoAdapter privObjectInfoAdapter = new PrivObjectInfoAdapter(PrivObjectInfoActivity.this, 0, new ArrayList<KeyValue>());
         listView.setAdapter(privObjectInfoAdapter);
 
-        List<KeyValue> keyValues = new ArrayList<KeyValue>();
+        List<KeyValue> keyValues = new ArrayList<>();
         for (Map.Entry<String, String> entry : mPrivObject.getAttributes().entrySet()) {
-            keyValues.add(new KeyValue(entry.getKey(),entry.getValue()));
+            keyValues.add(new KeyValue(entry.getKey(), entry.getValue()));
         }
 
         privObjectInfoAdapter.addAll(keyValues);
@@ -70,13 +71,23 @@ public class PrivObjectInfoActivity extends Activity {
             mObjects = objects;
         }
 
+        @Override
+        public int getCount() {
+            return mObjects.size();
+        }
+
+
         public View getView(final int position, View convertView, ViewGroup parent) {
             KeyValue k = mObjects.get(position);
+
             LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View rowView = inflater.inflate(R.layout.view_priv_object_info_item, parent, false);
 
             TextView key = ((TextView) rowView.findViewById(R.id.p_priv_object_name));
             key.setText(k.getKey());
+            if (position+1 == getCount()) {
+                key.setTextColor(inflater.getContext().getResources().getColor(R.color.p_status_red));
+            }
 
             TextView value = ((TextView) rowView.findViewById(R.id.p_priv_object_value));
             value.setText(k.getValue());

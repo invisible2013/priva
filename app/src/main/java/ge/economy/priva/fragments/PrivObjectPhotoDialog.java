@@ -57,7 +57,7 @@ class PrivObjectImagesAdapter extends ArrayAdapter<String>{
         String t = mPrivObjects.get(position);
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View rowView = inflater.inflate(R.layout.view_priv_object_image_item, parent, false);
-        ImageView imageView = (ImageView) rowView.findViewById(R.id.p_priv_obeject_image);
+        ImageView imageView = (ImageView) rowView.findViewById(R.id.p_priv_object_image);
         UrlImageViewHelper.setUrlDrawable(imageView, t);
         return rowView;
     }

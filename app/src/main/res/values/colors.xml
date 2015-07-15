@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="clr_carrot">#FF6600</color>
-    <color name="clr_red">#FF0000</color>
-    <color name="clr_green">#009933</color>
+    <color name="p_status_carrot">#FF6600</color>
+    <color name="p_status_red">#FF0000</color>
+    <color name="p_status_green">#009933</color>
+    <color name="p_list_text">#80000000</color>
 </resources>

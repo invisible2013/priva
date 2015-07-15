@@ -21,12 +21,17 @@
         <activity
             android:name=".ResultActivity"
             android:label="@string/title_activity_result"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".MainActivity" >
         </activity>
         <activity
             android:name=".PrivObjectInfoActivity"
             android:label="@string/title_activity_priv_object_info"
-            android:parentActivityName=".ResultActivity">
+            android:parentActivityName=".ResultActivity" >
+        </activity>
+        <activity
+            android:name=".PrivObjectImageActivity"
+            android:label="@string/title_activity_priv_object_image"
+            android:parentActivityName=".PrivObjectInfoActivity">
         </activity>
     </application>
 

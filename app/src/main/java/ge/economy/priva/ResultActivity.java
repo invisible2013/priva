@@ -231,11 +231,11 @@ class ResultAdapter extends ArrayAdapter<PrivObject> {
         ((TextView) rowView.findViewById(R.id.f_object_price)).setText(privObject.getPrice());
         ((TextView) rowView.findViewById(R.id.f_object_winner)).setText(privObject.getWinner());
         if (privObject.getStatusClass().equals("clr_green")) {
-            ((TextView) rowView.findViewById(R.id.f_object_winner)).setTextColor(inflater.getContext().getResources().getColor(R.color.clr_green));
+            ((TextView) rowView.findViewById(R.id.f_object_winner)).setTextColor(inflater.getContext().getResources().getColor(R.color.p_status_green));
         } else if (privObject.getStatusClass().equals("clr_carrot")) {
-            ((TextView) rowView.findViewById(R.id.f_object_winner)).setTextColor(inflater.getContext().getResources().getColor(R.color.clr_carrot));
+            ((TextView) rowView.findViewById(R.id.f_object_winner)).setTextColor(inflater.getContext().getResources().getColor(R.color.p_status_carrot));
         } else if (privObject.getStatusClass().equals("clr_red")) {
-            ((TextView) rowView.findViewById(R.id.f_object_winner)).setTextColor(inflater.getContext().getResources().getColor(R.color.clr_red));
+            ((TextView) rowView.findViewById(R.id.f_object_winner)).setTextColor(inflater.getContext().getResources().getColor(R.color.p_status_red));
         }
         return rowView;
     }
